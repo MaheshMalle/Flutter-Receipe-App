@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:receipe/screens/categories_screen.dart';
+import 'package:receipe/screens/filters.dart';
+import 'package:receipe/screens/tabs_screen_down.dart';
+
+class MainDrawer extends StatelessWidget {
+  Widget buildListTile(
+      String title, IconData icon, Function tapHandler, BuildContext context) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 26,
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontFamily: 'RobotoCondensed',
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onTap: () {
+        //tapHandler;
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => filtersScreen()));
+      },
+    );
+  }
+
+  const MainDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(children: [
+        Container(
+          height: 100,
+          width: double.infinity,
+          padding: EdgeInsets.all(20),
+          alignment: Alignment.centerLeft,
+          color: Theme.of(context).accentColor,
+          child: Text(
+            'Cooking Up!',
+            style: TextStyle(
+                fontWeight: FontWeight.w900, fontSize: 30, color: Colors.black),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        buildListTile('Meals', Icons.restaurant, () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => TabsScreenDown()));
+        }, context),
+        buildListTile('Filters', Icons.settings, () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => filtersScreen()));
+        }, context),
+      ]),
+    );
+  }
+}
